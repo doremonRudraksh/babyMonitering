@@ -1,6 +1,6 @@
 song = "";
 status =  "";
-object = [];
+objects = [];
 
 function preload(){
 
@@ -28,6 +28,7 @@ function gotResult(e, r) {
     }
     console.log(r);
     objects = r;
+    console.log("test")
 }
 
 function draw(){
@@ -38,19 +39,21 @@ function draw(){
         g = random(255)
         b = random(255);
         objectDetector.detect(video, gotResult);
-        for (i = 0; i < object.length; i++) {
+        for (i = 0; i < objects.length; i++) {
           document.getElementById("status").innerHTML = "Status : Object Detected";
  
           fill(r,g,b);
-          percent = floor(object[i].confidence * 100);
-          text(object[i].label + " " + percent + "%", object[i].x + 15, object[i].y + 15);
+          percent = floor(objects[i].confidence * 100);
+          text(objects[i].label + " " + percent + "%", objects[i].x + 15, objects[i].y + 15);
           noFill();
           stroke(r,g,b);
-          rect(object[i].x, object[i].y, object[i].width, object[i].height);
+          rect(objects[i].x, objects[i].y, objects[i].width, objects[i].height);
 
         }
         
-        if(object[1].label = "person"){
+        console.log(objects);
+
+        if(objects[i].label == "person"){
             document.getElementById("number_of_obj").innerHTML = "Baby Found";
             console.log("stop");
             song.stop();
@@ -62,7 +65,7 @@ function draw(){
             song.play();
         }
 
-        if(object.length == 0)
+        if(objects.length == 0)
         {
           document.getElementById("number_of_obj").innerHTML = "Baby Not Found";
           console.log("play"); 
